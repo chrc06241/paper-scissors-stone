@@ -1,0 +1,53 @@
+<div class="homepage">
+  <h1>Paper Scissors Stone</h1>
+  <ng-container *ngIf="!isInputNamePage; else optionsPage">
+    <form>
+      <input 
+        id="userName"
+        type="text" 
+        placeholder="Please enter your name"  
+        [formControl]="userName" 
+      >
+      <button type="button" (click)="enterTheOptionsPage()">OK</button>
+    </form>
+  </ng-container>
+</div>
+
+<ng-template #optionsPage>
+  <div class="btn-group">
+    <button type="button" (click)="openModal(modalContent, 'create')">CREATE</button>
+    <button type="button" (click)="openModal(modalContent, 'join')">JOIN</button>
+    <button type="button" (click)="returnToNameInputPage()">RETURN</button>
+  </div>
+</ng-template>
+
+<ng-template #modalContent let-modal>
+	<div class="modal-header">
+    <button type="button" aria-label="Close" (click)="modal.dismiss()">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </button>
+		<h1 class="modal-title" id="modal-basic-title">{{ title }}</h1>
+	</div>
+	<div class="modal-body">
+    <ng-container *ngIf="btnText === 'CREATE'; else join">
+      <input 
+        type="text" 
+        id="roomName" 
+        placeholder="Please enter room name" 
+        autocomplete="off"
+        [formControl]="roomName" 
+      >
+    </ng-container>
+    <ng-template #join>
+      <input 
+        type="text" 
+        id="roomId" 
+        placeholder="Please enter room ID" 
+        autocomplete="off"
+      >
+    </ng-template>
+	</div>
+	<div class="modal-footer">
+    <button type="button" class="btn" (click)="enterTheRoom($event.target)">{{ btnText }}</button>
+	</div>
+</ng-template>

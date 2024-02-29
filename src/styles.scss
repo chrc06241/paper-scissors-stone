@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+  font-family: 'Darumadrop One', cursive;
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal {
+  .modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .modal-content {
+      background-color: #FEFCF3;
+      border-radius: 50px;
+      padding: 15px;
+      width: fit-content;
+      .modal-header {
+        flex-direction: column;
+        align-items: flex-end;
+        border: none;
+        button {
+          background: none;
+          i {
+            font-size: 52px;
+            color: #ac7b7b;
+          }
+        }
+        h1 {
+          color: #DBA39A;
+          text-align: center;
+          width: 100%;
+          margin: 0;
+          text-shadow: none;
+          font-size: 62px;
+        }
+      }
+      .modal-body {
+        padding: 0px 70px;
+        margin: 30px 0 40px;
+        input {
+          font-size: 30px;
+          width: 492px;
+          height: 106px;
+          border-radius: 20px;
+          border: 2px solid #DDD;
+          padding: 0 40px 10px 40px;
+          color: #a1a1a1;
+          &::placeholder {
+            color: #dddddd;
+          }
+          &:focus {
+            outline: solid #b7b7b7;
+          }
+        }
+        p {
+          font-size: 65px;
+          color: #DBA39A;
+          width: 568px;
+          text-align: center;
+        }
+      }
+      .modal-footer {
+        border: none;
+        justify-content: center;
+        button {
+          width: 260px;
+          height: 90px;
+          border-radius: 25px;
+          background: #DBA39A;
+          box-shadow: 0px 4px rgb(63 30 30 / 42%);
+          color: #FEFCF3;
+          font-size: 55px;
+          line-height: 55px;
+          padding-bottom: 20px;
+          margin-bottom: 70px;
+        }
+      }
+    }
+  }
+}

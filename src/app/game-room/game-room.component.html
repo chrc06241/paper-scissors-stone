@@ -1,0 +1,120 @@
+<div class="main-container">
+  <div class="body" [style.height]="isHost ? 'calc(100% - 100px)' : '100%'">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <div class="sidebar" [style.left]="isOpen ? '0px' : '-360px'">
+      <div class="room-info">
+        <ul>
+          <li>
+            <p>Room ID</p>
+            <input 
+              type="text" 
+              [value]="message?.roomId" 
+              readonly
+            >
+          </li>
+          <li>
+            <p>Room Name</p>
+            <input 
+              type="text" 
+              [value]="roomName" 
+              readonly
+            >
+          </li>
+          <li>
+            <p>People</p>
+            <input 
+              type="number" 
+              [value]="message?.connections" 
+              readonly
+            >          
+          </li>
+        </ul>
+      </div>
+      <button (click)="collapseSidebar()">
+        <i 
+          class="fa-solid fa-caret-right" 
+          [style.transform]="isOpen ? 'rotate(180deg)' : ''"
+        ></i>
+      </button>
+    </div>
+    <div class="room">
+      <div class="game-table">
+        <img src="../../assets/img/table.png" alt="table">
+        <div class="players">
+          <ng-container *ngFor="let player of players; let i = index;">
+            <div 
+              class="player" 
+              id="player{{i}}" 
+              [style.transform]="'rotate('+ angle*i +'deg)'"
+            >
+              <img [src]="player.img" alt="stone">
+              <p>{{ player.name }}</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <ng-container *ngIf="isPlaying">
+        <div class="gesture">
+          <div class="hand paper" (click)="selectGesture('paper')">
+            <img src="../../assets/img/paper.png" alt="paper">
+          </div>
+          <div class="hand scissors" (click)="selectGesture('scissors')">
+            <img src="../../assets/img/scissors.png" alt="scissors">
+          </div>
+          <div class="hand stone" (click)="selectGesture('stone')">
+            <img src="../../assets/img/stone.png" alt="stone">
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="isHost; else join">
+    <div class="footer">
+      <div class="options">
+        <div class="option allTogether">
+          <!-- <input type="radio" id="allTogether" name="option" value="allTogether" />
+          <label for="allTogether">all together</label> -->
+        </div>
+        <div class="option duos">
+          <!-- <input type="radio" id="duos" name="option" value="duos" />
+          <label for="duos">duos</label> -->
+        </div>
+      </div>
+      <ng-container [ngSwitch]="isPlaying">
+        <button *ngSwitchCase="false" type="submit" (click)="gameStart()">START</button>
+        <button *ngSwitchCase="true" type="submit" (click)="finishGame()">FINISH</button>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-template #join>
+    <div class="footer">
+      <!-- <div class="options">
+        <div class="option allTogether">
+          <input type="radio" id="allTogether" name="option" value="allTogether" />
+          <label for="allTogether">all together</label>
+        </div>
+        <div class="option duos">
+          <input type="radio" id="duos" name="option" value="duos" />
+          <label for="duos">duos</label>
+        </div>
+      </div> -->
+      <ng-container>
+        <button type="submit">READY</button>
+      </ng-container>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #gameOver let-modal>
+	<div class="modal-header">
+    <button type="button" aria-label="Close" (click)="modal.dismiss()">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </button>
+	</div>
+	<div class="modal-body">
+    <p>{{ whoIsWinner }}</p>
+	</div>
+	<div class="modal-footer">
+    <button type="button" class="btn" (click)="modal.dismiss()">OK</button>
+	</div>
+</ng-template>
